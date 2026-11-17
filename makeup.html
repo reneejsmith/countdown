@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fall 2026 Makeup Work Countdown</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0b5cad;
+    color: #ffffff;
+    text-align: center;
+    padding: 18px 12px 22px;
+  }
+  .today-label { font-size: clamp(18px, 5vw, 26px); font-weight: normal; }
+  .today-date {
+    font-size: clamp(20px, 5.5vw, 30px); font-weight: bold;
+    border-top: 2px solid #ffffff; margin-top: 6px; padding-top: 10px;
+  }
+  .lastday {
+    font-size: clamp(15px, 4.2vw, 21px); font-weight: bold;
+    text-transform: uppercase; line-height: 1.35; margin-top: 16px;
+  }
+  .target-date { font-size: clamp(20px, 5.5vw, 30px); font-weight: bold; margin-top: 10px; }
+  .therefore { font-size: clamp(16px, 4.5vw, 22px); margin-top: 14px; }
+  .days {
+    font-size: clamp(44px, 13vw, 64px); font-weight: bold;
+    color: #ffe600; line-height: 1.1; margin-top: 4px;
+  }
+  .days-label {
+    font-size: clamp(15px, 4.2vw, 21px); font-weight: bold;
+    text-transform: uppercase; margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+  <div class="today-label">Today is</div>
+  <div class="today-date" id="todayDate"></div>
+  <div class="lastday">The last day to submit makeup work to this course is before midnight</div>
+  <div class="target-date">Dec 6, 2026</div>
+  <div class="therefore" id="therefore">Therefore there are</div>
+  <div class="days" id="daysLeft"></div>
+  <div class="days-label" id="daysLabel">days left until the end of this course!</div>
+
+<script>
+  // Target: end of Dec 6, 2026 (work due before midnight that night).
+  var target = new Date(2026, 11, 6); // Dec 6, 2026, local midnight
+  var now = new Date();
+  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  var months = ["January","February","March","April","May","June","July",
+                "August","September","October","November","December"];
+  document.getElementById("todayDate").textContent =
+    months[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
+
+  var diffDays = Math.round((target - today) / 86400000);
+  var daysEl = document.getElementById("daysLeft");
+  var labelEl = document.getElementById("daysLabel");
+  var thereforeEl = document.getElementById("therefore");
+
+  if (diffDays > 1) {
+    daysEl.textContent = diffDays;
+  } else if (diffDays === 1) {
+    daysEl.textContent = "1";
+    labelEl.textContent = "day left until the end of this course!";
+  } else if (diffDays === 0) {
+    thereforeEl.textContent = "Today is the last day!";
+    daysEl.textContent = "0";
+    labelEl.textContent = "days left — submit before midnight tonight!";
+  } else {
+    thereforeEl.textContent = "";
+    daysEl.textContent = "";
+    labelEl.textContent = "This course has ended. Thank you for a great semester!";
+  }
+</script>
+</body>
+</html>
